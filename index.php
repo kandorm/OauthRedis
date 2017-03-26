@@ -18,6 +18,7 @@
                 <?php if($user != null): ?>
                 <div id="navbar" class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right">
+			<a class="text-center"><?php echo $user['email']; ?></a>
                         <a class="btn btn-primary" href="entry.php?type=logout" role="button">Logout</a>
                     </form>
                 </div>

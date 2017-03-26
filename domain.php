@@ -43,13 +43,14 @@
                         <tbody id="table"></tbody>
                         <?php
                             $domain = $_GET['domain'];
+			    $domain = strtolower($domain);
                             $pageNow = $_GET['pageNow'] ? $_GET['pageNow'] : 1;
                             $pageSize = 20;
                             $redis->select(1);
                             $count = $redis->lLen($domain);
                             $pageCount = ceil($count/$pageSize);
                             $indexs = $redis->lRange($domain, ($pageNow - 1) * $pageSize, $pageNow * $pageSize - 1);
-                            echo "<th>name</th>";
+                            echo "<th>Name</th>";
                             echo "<th>H-index</th>";
                             echo "<th>Coauthors</th>";
                             while($index = each($indexs)) {
