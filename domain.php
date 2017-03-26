@@ -1,3 +1,4 @@
+<?php include_once "user.php"?>
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
@@ -14,15 +15,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">OauthRedis</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right">
-                        <a class="btn btn-primary" href="login.php" role="button">Sign in</a>
-                    </form>
-                </div>
             </div>
         </nav>
         <div class="container">
-            <form class="form-group" action="domain.php" method="post">
+            <form class="form-group" action="domain.php" method="get">
                 <div class="input-group">
                     <input type="text" name="domain" class="form-control" placeholder="Search for..." required autofocus style="height: 45px">
                     <span class="input-group-btn">
@@ -42,6 +38,7 @@
                             $pageSize = 20;
                             $redis = new Redis();
                             $redis->connect("localhost", 6379, 0);
+                            $redis->auth("d-wan142014011290");
                             $redis->select(1);
                             $count = $redis->lLen($domain);
                             $pageCount = ceil($count/$pageSize);
@@ -65,11 +62,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            function getExpertDetails() {
-
-            }
-        </script>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>

@@ -1,3 +1,4 @@
+<?php include_once "user.php"?>
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
@@ -14,14 +15,10 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">OauthRedis</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right">
-                        <a class="btn btn-primary" href="login.php" role="button">Sign in</a>
-                    </form>
-                </div>
             </div>
         </nav>
         <div class="container">
+            <?php if($user != null): ?>
             <h1 style="text-align: center; margin-top: 150px">OauthRedis</h1>
             <form class="form-group" action="domain.php" style="margin-top: 50px" method="get">
                 <div class="input-group">
@@ -31,10 +28,16 @@
                 </span>
                 </div>
             </form>
+            <?php else:?>
+                <div class="vertical-center" style="text-align: center; margin-top: 200px">
+                    <h1>Welcome to OauthRedis! Please sign in first!</h1>
+                    <a class="btn btn-success btn-lg" href="login.php">Sign in with Github</a>
+                </div>
 
         </div>
 
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <?php endif;?>
     </body>
 </html>
