@@ -1,3 +1,4 @@
+<?php include_once "user.php"?>
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
