@@ -18,7 +18,7 @@
                 <?php if($user != null): ?>
                     <div id="navbar" class="navbar-collapse collapse">
                         <form class="navbar-form navbar-right">
-                            <a class="btn btn-primary" href="entry.php" role="button" type="logout">Logout</a>
+                            <a class="btn btn-primary" href="entry.php?type=logout" role="button">Logout</a>
                         </form>
                     </div>
                 <?php endif;?>

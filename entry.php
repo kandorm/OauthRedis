@@ -1,5 +1,7 @@
 <?php
     include_once "common.php";
+
+
     if($_GET['type'] == 'logout') {
         setcookie("user_id", null);
         $user = null;

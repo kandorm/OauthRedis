@@ -15,14 +15,15 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">OauthRedis</a>
                 </div>
-            </div>
+            
             <?php if($user != null): ?>
                 <div id="navbar" class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right">
-                        <a class="btn btn-primary" href="entry.php" role="button" type="logout">Logout</a>
+                        <a class="btn btn-primary" href="entry.php?type=logout" role="button">Logout</a>
                     </form>
                 </div>
             <?php endif;?>
+	    </div>
         </nav>
         <?php if($user != null): ?>
         <div class="container">
@@ -66,6 +67,31 @@
                     </table>
                 </div>
             </div>
+	   <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="domain.php?domain=<?php echo $domain?>&pageNow=<?php echo $pageNow == 1 ? 1:$pageNow-1?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <?php
+                        for($i=($pageNow-2 <1 ? 1 : $pageNow-2); $i<=$pageCount && $i<=$pageNow+2; $i++) {
+			    if($i == $pageNow) {
+				$class = "class=\"active\"";
+			    }
+			    else {
+				$class = "";
+			    }
+                            echo "<li ".$class."><a href='domain.php?domain=$domain&pageNow=$i'>$i</a></li>";
+                        }
+                    ?>
+                    <li>
+                        <a href="domain.php?domain=<?php echo $domain?>&pageNow=<?php echo $pageNow == $pageCount ? $pageNow : $pageNow + 1?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <?php else: echo "Permision Denied!"?>
         <?php endif;?>
