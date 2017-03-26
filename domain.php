@@ -1,4 +1,4 @@
-<?php include_once "user.php"?>
+<?php include_once "common.php"; ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
@@ -16,7 +16,15 @@
                     <a class="navbar-brand" href="index.php">OauthRedis</a>
                 </div>
             </div>
+            <?php if($user != null): ?>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <form class="navbar-form navbar-right">
+                        <a class="btn btn-primary" href="entry.php" role="button" type="logout">Logout</a>
+                    </form>
+                </div>
+            <?php endif;?>
         </nav>
+        <?php if($user != null): ?>
         <div class="container">
             <form class="form-group" action="domain.php" method="get">
                 <div class="input-group">
@@ -36,9 +44,6 @@
                             $domain = $_GET['domain'];
                             $pageNow = $_GET['pageNow'] ? $_GET['pageNow'] : 1;
                             $pageSize = 20;
-                            $redis = new Redis();
-                            $redis->connect("localhost", 6379, 0);
-                            $redis->auth("d-wan142014011290");
                             $redis->select(1);
                             $count = $redis->lLen($domain);
                             $pageCount = ceil($count/$pageSize);
@@ -62,6 +67,8 @@
                 </div>
             </div>
         </div>
+        <?php else: echo "Permision Denied!"?>
+        <?php endif;?>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>

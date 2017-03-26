@@ -1,4 +1,4 @@
-<?php include_once "user.php"?>
+<?php include_once "common.php"; ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
@@ -15,13 +15,16 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.php">OauthRedis</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right">
-                        <a class="btn btn-primary" href="login.php" role="button">Sign in</a>
-                    </form>
-                </div>
+                <?php if($user != null): ?>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <form class="navbar-form navbar-right">
+                            <a class="btn btn-primary" href="entry.php" role="button" type="logout">Logout</a>
+                        </form>
+                    </div>
+                <?php endif;?>
             </div>
         </nav>
+        <?php if($user != null):?>
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-heading">Coauthors</div>
@@ -29,8 +32,6 @@
                     <table class="table table-hover table-bordered">
                         <?php
                             $index = $_GET['index'];
-                            $redis = new Redis();
-                            $redis->connect("localhost", 6379, 0);
                             $redis->select(2);
                             $count = $redis->lLen($index);
                             $indexs = $redis->lRange($index, 0, $count);
@@ -44,7 +45,6 @@
                                 echo "<tr>";
                                 echo "<td>".$expert_obj->n."</td>";
                                 echo "<td>".$index_obj->collaborations."</td>";
-                                #echo "<td><a class='btn btn-success' href='expert.php?index=".$expert_obj->index."'>Coauthors</a></td>";
                                 echo "</tr>";
                         }
                         ?>
@@ -52,6 +52,8 @@
                 </div>
             </div>
         </div>
+        <?php else: echo "Permision Denied!"?>
+        <?php endif;?>
 
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

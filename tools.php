@@ -18,7 +18,6 @@ function curl_get($url, $params = null) {
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_USERAGENT, "OauthRedis");
     $output = curl_exec($ch);
-
     curl_close($ch);
     return $output;
 }
