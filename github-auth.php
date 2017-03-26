@@ -10,8 +10,10 @@ include_once "common.php";
 
 
 $code = $_GET['code'];
-if($state != $_GET['state'])
-    die("attack!");
+if($state != $_GET['state']) {
+die("state:".$state." ".$_GET['state']);
+}
+
 $access_token_url = "https://github.com/login/oauth/access_token";
 $result = curl_post($access_token_url, [
     "client_id" => $github_client_id,
@@ -20,6 +22,7 @@ $result = curl_post($access_token_url, [
     "redirect_url" => $home_page,
     "state" => $state,
 ]);
+
 $result_param_list = explode('&', $result);
 $params = array();
 foreach ($result_param_list as $param) {
@@ -32,13 +35,17 @@ $user_info_url = "https://api.github.com/user";
 $user_info = curl_get($user_info_url, [
     "access_token" => $access_token,
 ]);
-$user_obj = json_decode($user_info);
+
+$user_obj = json_decode($user_info, true);
+
 if(!key_exists('email', $user_obj))
     die("Permision Denied!");
 $user_id = $user_obj['id'];
+
+
 $redis->select(3);
-$redis->set($access_token, json_decode($user_obj));
-setcookie("access_token", $access_token, time()+3600);
+$redis->set($user_id, json_encode($user_obj, true));
+setcookie("user_id", $user_id, time()+3600);
 header("Location:$home_page");
 
 ?>

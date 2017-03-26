@@ -9,8 +9,7 @@ $redis = new Redis();
 $redis->connect("localhost", 6379, 0);
 $redis->auth("d-wan142014011290");
 
-$state = random_int(0, PHP_INT_MAX);
-
+$state = "6497121511705809608";
 $home_page = "http://oauthredis.southeastasia.cloudapp.azure.com/";
 
 $github_client_id = "a004b15fb67045c7faf6";

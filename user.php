@@ -8,10 +8,11 @@
 include_once "common.php";
 
 $user = null;
-if(key_exists('access_token', $_COOKIE)) {
-    $redis->select(3);
-    $user_obj = $redis->get($_COOKIE['access_token']);
-    if($user_info != false) {
+if(key_exists('user_id', $_COOKIE)) {
+echo $_COOKIE['user_id'];    
+$redis->select(3);
+    $user_obj = $redis->get($_COOKIE['user_id']);
+    if($user_obj != false) {
         $user = json_decode($user_obj, true);
     }
 }
